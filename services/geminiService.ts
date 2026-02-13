@@ -5,10 +5,10 @@ export const getHealthTips = async (metrics: UserMetrics, result: BMIResult): Pr
   const apiKey = process.env.API_KEY;
 
   if (!apiKey || apiKey === '') {
-    throw new Error("API_KEY is missing. Please add it to your Vercel Environment Variables.");
+    throw new Error("API_KEY is missing. Please add it to your Vercel Environment Variables (Settings > Environment Variables).");
   }
 
-  // Use the standard initialization pattern
+  // Use the standard initialization pattern as per @google/genai guidelines
   const ai = new GoogleGenAI({ apiKey });
   
   const greeting = metrics.name ? `The user's name is ${metrics.name}.` : "The user has not provided a name.";
@@ -63,7 +63,6 @@ export const getHealthTips = async (metrics: UserMetrics, result: BMIResult): Pr
     return data as AIResponse;
   } catch (error: any) {
     console.error("Gemini API Error:", error);
-    // Throw the specific error message to be caught by the UI
-    throw new Error(error.message || "Failed to generate health tips.");
+    throw new Error(error.message || "Failed to generate health tips. Ensure your API key is valid and has billing enabled if required.");
   }
 };
