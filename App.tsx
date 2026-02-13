@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import BMICalculator from './components/BMICalculator';
 import BMIChart from './components/BMIChart';
@@ -27,8 +26,8 @@ const App: React.FC = () => {
     try {
       const data = await getHealthTips(metrics, result);
       setAiData(data);
-    } catch (err) {
-      setError("Unable to generate health tips. Please check your connection.");
+    } catch (err: any) {
+      setError(err.message || "Unable to generate health tips. Please check your connection.");
     } finally {
       setIsLoadingTips(false);
     }
@@ -47,7 +46,6 @@ const App: React.FC = () => {
         <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="bg-blue-600 p-2 rounded-lg text-white">
-              {/* Vital/EKG Line Icon */}
               <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M3 12h3L9 3l6 18 3-9h3" />
               </svg>
@@ -95,7 +93,6 @@ const App: React.FC = () => {
                   )}
                 </button>
 
-                {/* PDF Download Button */}
                 <button
                   onClick={handleDownloadPDF}
                   className="w-full bg-white border border-slate-200 text-slate-700 font-bold py-3 rounded-2xl flex items-center justify-center gap-2 transition-all hover:bg-slate-50 active:scale-[0.98]"
@@ -108,7 +105,10 @@ const App: React.FC = () => {
               </div>
             )}
             {error && (
-              <p className="text-red-500 text-sm font-medium text-center">{error}</p>
+              <div className="bg-red-50 border border-red-100 p-4 rounded-xl">
+                <p className="text-red-600 text-sm font-semibold text-center">{error}</p>
+                <p className="text-red-400 text-[10px] text-center mt-1">Check Vercel Settings -> Environment Variables</p>
+              </div>
             )}
           </div>
 
