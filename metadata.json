@@ -1,0 +1,5 @@
+{
+  "name": "Smart BMI Pro",
+  "description": "A smart BMI calculator and wellness advisor that provides personalized health tips using the Gemini API based on your body metrics and fitness goals.",
+  "requestFramePermissions": []
+}
